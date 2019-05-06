@@ -82,5 +82,9 @@ DUMP avg_result;
 
 --2E
 REGISTER '/HW4/delay_udf.py' USING jython AS myudf;
-out = FOREACH avg_result GENERATE myudf.delay_udf(*);
+out = FOREACH avg_result GENERATE myudf.delay_udf((('CARRIER_DELAY', $0),
+                                                   ('WEATHER_DELAY', $1),
+                                                   ('NAS_DELAY', $2),
+                                                   ('SECURITY_DELAY', $3),
+                                                   ('LATE_AIRCRAFT_DELAY', $4)));
 DUMP out;
